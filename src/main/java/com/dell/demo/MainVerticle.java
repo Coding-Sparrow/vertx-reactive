@@ -19,7 +19,7 @@ public class MainVerticle extends AbstractVerticle {
             getHandler.response().end("Request Accepted!");
             vertx.fileSystem()
                     .rxOpen("data.txt", new OpenOptions())
-                    .flatMapObservable(af -> RecordParser.newDelimited("/n/r", af).toObservable())
+                    .flatMapObservable(af -> RecordParser.newDelimited("\n\r", af).toObservable())
                     .map(Buffer::toString)
                     .filter(name -> name.startsWith("R"))
                     .take(2)
